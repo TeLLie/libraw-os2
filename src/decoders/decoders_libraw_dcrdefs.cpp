@@ -1,5 +1,5 @@
 /* -*- C++ -*-
- * Copyright 2019-2021 LibRaw LLC (info@libraw.org)
+ * Copyright 2019-2025 LibRaw LLC (info@libraw.org)
  *
  LibRaw is free software; you can redistribute it and/or modify
  it under the terms of the one of two licenses as you choose:
@@ -13,6 +13,14 @@
  */
 
 #include "../../internal/dcraw_defs.h"
+
+
+void LibRaw::nikon_he_load_raw()
+{
+    if(dng_version)
+    	throw LIBRAW_EXCEPTION_UNSUPPORTED_FORMAT; // Never reached
+    throw LIBRAW_EXCEPTION_UNSUPPORTED_FORMAT;
+}
 
 void LibRaw::packed_tiled_dng_load_raw()
 {
@@ -71,7 +79,6 @@ void LibRaw::packed_tiled_dng_load_raw()
 }
 
 
-
 void LibRaw::sony_ljpeg_load_raw()
 {
   unsigned trow = 0, tcol = 0, jrow, jcol, row, col;
@@ -113,11 +120,6 @@ void LibRaw::sony_ljpeg_load_raw()
   }
 }
 
-void LibRaw::nikon_he_load_raw_placeholder()
-{
-    throw LIBRAW_EXCEPTION_UNSUPPORTED_FORMAT;
-}
-
 void LibRaw::nikon_coolscan_load_raw()
 {
   int clrs = colors == 3 ? 3 : 1;
@@ -154,16 +156,16 @@ void LibRaw::nikon_coolscan_load_raw()
         {
           for (int col = 0; col < width; col++)
           {
-            ip[col][0] = ((float)curve[buf[col * 3]]) / 255.0f;
-            ip[col][1] = ((float)curve[buf[col * 3 + 1]]) / 255.0f;
-            ip[col][2] = ((float)curve[buf[col * 3 + 2]]) / 255.0f;
+            ip[col][0] = ushort(((float)curve[buf[col * 3]]) / 255.0f);
+            ip[col][1] = ushort(((float)curve[buf[col * 3 + 1]]) / 255.0f);
+            ip[col][2] = ushort(((float)curve[buf[col * 3 + 2]]) / 255.0f);
             ip[col][3] = 0;
           }
         }
         else
         {
           for (int col = 0; col < width; col++)
-            rp[col] = ((float)curve[buf[col]]) / 255.0f;
+            rp[col] = ushort(((float)curve[buf[col]]) / 255.0f);
         }
     }
     else if (tiff_bps <= 8)
