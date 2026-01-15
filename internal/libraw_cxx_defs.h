@@ -106,8 +106,12 @@ void clear_dng_image(void*);
   } while (0)
 
 // copy-n-paste from image pipe
+#ifndef MIN
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+#endif
+#ifndef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+#endif
 #define LIM(x, min, max) MAX(min, MIN(x, max))
 #ifndef CLIP
 #define CLIP(x) LIM(x, 0, 65535)

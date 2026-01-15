@@ -18,14 +18,6 @@ it under the terms of the one of two licenses as you choose:
    for more information
 */
 
-#ifndef MIN
-#define MIN(a,b) ((a) < (b) ? (a) : (b))
-#endif
-
-#ifndef MAX
-#define MAX(a,b) ((a) > (b) ? (a) : (b))
-#endif
-
 #ifndef LIBRAW_INT_DEFINES_H
 #define LIBRAW_INT_DEFINES_H
 #ifndef USE_JPEG
@@ -106,8 +98,12 @@ typedef unsigned long long UINT64;
 
 #define SQR(x) ((x) * (x))
 #define ABS(x) (((int)(x) ^ ((int)(x) >> 31)) - ((int)(x) >> 31))
+#ifndef MIN
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+#endif
+#ifndef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+#endif
 #define LIM(x, min, max) MAX(min, MIN(x, max))
 #define ULIM(x, y, z) ((y) < (z) ? LIM(x, y, z) : LIM(x, z, y))
 #define CLIP(x) LIM((int)(x), 0, 65535)
