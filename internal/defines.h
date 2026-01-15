@@ -18,6 +18,14 @@ it under the terms of the one of two licenses as you choose:
    for more information
 */
 
+#ifndef MIN
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
+#endif
+
+#ifndef MAX
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+#endif
+
 #ifndef LIBRAW_INT_DEFINES_H
 #define LIBRAW_INT_DEFINES_H
 #ifndef USE_JPEG
